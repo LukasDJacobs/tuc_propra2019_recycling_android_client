@@ -16,6 +16,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+ext {
+    gsonVersion = "2.8.5"
+    retrofitVersion = "2.5.0"
+    okHttpVersion = "3.14.1"
+    daggerVersion = "2.22.1"
 }
 
 dependencies {
@@ -25,4 +37,21 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    // GSON (object <-> JSON conversion)
+    implementation group: 'com.google.code.gson', name: "gson", version: "$gsonVersion"
+
+    // Retrofit & OkHttp (HTTP frameworks)
+    implementation(group: "com.squareup.retrofit2", name: "retrofit", version: "$retrofitVersion") {
+        exclude module: "okhttp"
+    }
+    implementation group: "com.squareup.retrofit2", name: "converter-gson", version: "$retrofitVersion"
+    implementation group: "com.squareup.okhttp3", name: "okhttp", version: "$okHttpVersion"
+    implementation group: "com.squareup.okhttp3", name: "logging-interceptor", version: "$okHttpVersion"
+
+    // Dagger dependency injection
+    implementation group: "com.google.dagger", name: "dagger", version: "$daggerVersion"
+    implementation group: "com.google.dagger", name: "dagger-android", version: "$daggerVersion"
+    annotationProcessor group: "com.google.dagger", name: "dagger-android-processor", version: "$daggerVersion"
+    annotationProcessor group: "com.google.dagger", name: "dagger-compiler", version: "$daggerVersion"
 }
