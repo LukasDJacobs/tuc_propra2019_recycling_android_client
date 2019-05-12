@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1098782501691",
+    "firebase_url": "https://propra-recycling.firebaseio.com",
+    "project_id": "propra-recycling",
+    "storage_bucket": "propra-recycling.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098782501691:android:d21c7ed188738464",
+        "android_client_info": {
+          "package_name": "de.tu_clausthal.in.propra.recyclingsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098782501691-cuk9rb9vd0uc8s0rtv8svfvmrp95bar6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.tu_clausthal.in.propra.recyclingsystem",
+            "certificate_hash": "5fb48aeb5b7d24e8be5aa7308a1b41220db756bc"
+          }
+        },
+        {
+          "client_id": "1098782501691-6d04h7mb333p0khmb6ute2chrbh4qkjh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARzAYy16B4wc057Iz1PfcgqTMXAgh-cxM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098782501691-6d04h7mb333p0khmb6ute2chrbh4qkjh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

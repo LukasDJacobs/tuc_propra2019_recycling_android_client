@@ -6,7 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import de.tu_clausthal.in.propra.recyclingsystem.app.ActivityContext;
 import de.tu_clausthal.in.propra.recyclingsystem.app.ActivityScope;
-import de.tu_clausthal.in.propra.recyclingsystem.MainActivity;
+import de.tu_clausthal.in.propra.recyclingsystem.ui.MainActivity;
 
 @Module
 public class ActivityModule {

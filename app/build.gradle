@@ -28,6 +28,11 @@ ext {
     retrofitVersion = "2.5.0"
     okHttpVersion = "3.14.1"
     daggerVersion = "2.22.1"
+    materialVersion = "1.0.0"
+    butterknifeVersion = "10.1.0"
+    mlkitVersion = "20.0.0"
+    firebaseVersion = "16.0.9"
+    cameraviewVersion = "2.0.0-beta04"
 }
 
 dependencies {
@@ -54,4 +59,21 @@ dependencies {
     implementation group: "com.google.dagger", name: "dagger-android", version: "$daggerVersion"
     annotationProcessor group: "com.google.dagger", name: "dagger-android-processor", version: "$daggerVersion"
     annotationProcessor group: "com.google.dagger", name: "dagger-compiler", version: "$daggerVersion"
+
+    // Material Design Elements
+    implementation group: "com.google.android.material", name: "material", version: "$materialVersion"
+
+    // Butterknife field and method binding framework
+    implementation "com.jakewharton:butterknife:$butterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+
+    // MLKit Vision is used for detecting bar codes
+    implementation "com.google.firebase:firebase-core:$firebaseVersion"
+    implementation "com.google.firebase:firebase-ml-vision:$mlkitVersion"
+
+    // Capture pictures from camera
+    api "com.otaliastudios:cameraview:$cameraviewVersion"
 }
+
+// Needed for firebase / MLKit
+apply plugin: "com.google.gms.google-services"
