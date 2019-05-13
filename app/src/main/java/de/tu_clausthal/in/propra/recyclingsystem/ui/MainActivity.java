@@ -10,17 +10,24 @@ import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import dagger.android.AndroidInjection;
 import de.tu_clausthal.in.propra.recyclingsystem.R;
+import de.tu_clausthal.in.propra.recyclingsystem.RecyclerWebservice;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getName();
 
     private static final int RC_SCAN_CODE = 1001;
+
+    @Inject
+    RecyclerWebservice mWebservice;
 
     @BindView(R.id.cl_main_activity_root)
     View mRootView;
@@ -29,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AndroidInjection.inject(this);
         ButterKnife.bind(this);
     }
 

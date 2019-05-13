@@ -1,23 +1,31 @@
 package de.tu_clausthal.in.propra.recyclingsystem.app.components;
 
-import android.content.Context;
+import javax.inject.Singleton;
 
+import dagger.BindsInstance;
 import dagger.Component;
-import de.tu_clausthal.in.propra.recyclingsystem.app.AppContext;
+import dagger.android.AndroidInjectionModule;
+import dagger.android.AndroidInjector;
 import de.tu_clausthal.in.propra.recyclingsystem.app.AppScope;
-import de.tu_clausthal.in.propra.recyclingsystem.app.modules.ContextModule;
+import de.tu_clausthal.in.propra.recyclingsystem.app.modules.ActivityModule;
 import de.tu_clausthal.in.propra.recyclingsystem.app.modules.NetworkModule;
 import de.tu_clausthal.in.propra.recyclingsystem.RecyclerWebservice;
 import de.tu_clausthal.in.propra.recyclingsystem.app.App;
 
 @AppScope
-@Component(modules = {ContextModule.class, NetworkModule.class})
-public interface AppComponent {
+@Singleton
+@Component(modules = {NetworkModule.class, ActivityModule.class, AndroidInjectionModule.class})
+public interface AppComponent extends AndroidInjector<App> {
 
     public RecyclerWebservice getWebservice();
 
-    @AppContext
-    public Context getContext();
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        Builder app(App app);
+
+        AppComponent build();
+    }
 
     public void injectApp(App app);
 
