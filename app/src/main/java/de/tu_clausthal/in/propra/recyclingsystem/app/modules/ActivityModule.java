@@ -1,36 +1,17 @@
 package de.tu_clausthal.in.propra.recyclingsystem.app.modules;
 
-import android.content.Context;
 
 import dagger.Module;
-import dagger.Provides;
-import de.tu_clausthal.in.propra.recyclingsystem.app.ActivityContext;
-import de.tu_clausthal.in.propra.recyclingsystem.app.ActivityScope;
-import de.tu_clausthal.in.propra.recyclingsystem.MainActivity;
+import dagger.android.ContributesAndroidInjector;
+
+import de.tu_clausthal.in.propra.recyclingsystem.ui.MainActivity;
+import de.tu_clausthal.in.propra.recyclingsystem.ui.ScanCodeDialogActivity;
 
 @Module
-public class ActivityModule {
+public abstract class ActivityModule {
+    @ContributesAndroidInjector
+    abstract MainActivity contributeMainActivity();
 
-    private MainActivity mMainActivity;
-
-    Context context;
-
-    public ActivityModule(MainActivity mainActivity) {
-        mMainActivity = mainActivity;
-        context = mainActivity;
-    }
-
-    @Provides
-    @ActivityContext
-    public MainActivity provideMainActivity() {
-        return mMainActivity;
-    }
-
-    @Provides
-    @ActivityContext
-    @ActivityScope
-    public Context provideContext() {
-        return context;
-    }
-
+    @ContributesAndroidInjector
+    abstract ScanCodeDialogActivity contributeScanCodeDialogActivity();
 }
