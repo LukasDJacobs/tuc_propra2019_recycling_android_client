@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetector;
@@ -27,6 +29,8 @@ import butterknife.ButterKnife;
 import de.tu_clausthal.in.propra.recyclingsystem.R;
 
 public class ScanCodeDialogActivity extends AppCompatActivity {
+
+    private static final String LOG_TAG = ScanCodeDialogActivity.class.getName();
 
     public static final String EXTRA_SCAN_RESULT = "SCAN_RESULT";
 
@@ -84,6 +88,11 @@ public class ScanCodeDialogActivity extends AppCompatActivity {
                 i.putExtra(EXTRA_SCAN_RESULT, s);
                 setResult(RESULT_OK, i);
                 finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(LOG_TAG, "Failed to detect code.", e);
             }
         });
     }

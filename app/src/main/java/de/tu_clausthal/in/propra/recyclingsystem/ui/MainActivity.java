@@ -7,8 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
+import java.io.IOException;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,10 @@ import butterknife.OnClick;
 import dagger.android.AndroidInjection;
 import de.tu_clausthal.in.propra.recyclingsystem.R;
 import de.tu_clausthal.in.propra.recyclingsystem.RecyclerWebservice;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.cl_main_activity_root)
     View mRootView;
+
+    @BindView(R.id.tv_response)
+    TextView mTvResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleScannedCode(String code) {
-        Snackbar.make(mRootView, code, Snackbar.LENGTH_LONG).show();
+        mWebservice.getCode(code).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() != 200) { // HTTP 200: OK
+                    mTvResponse.setText("Error Code " + response.code());
+                    mTvResponse.setVisibility(View.VISIBLE);
+                }
+
+                if (response.body() == null)
+                    return;
+
+                String s = "Response Code: " + response.code() + " " +response.message();
+                s += "\n";
+                try {
+                    s += response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mTvResponse.setText(s);
+                mTvResponse.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 }
