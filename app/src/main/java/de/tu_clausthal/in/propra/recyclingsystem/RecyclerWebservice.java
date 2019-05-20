@@ -7,7 +7,7 @@ import retrofit2.http.Path;
 
 public interface RecyclerWebservice {
 
-    @GET("send_qr/{id}/")
+    @GET("block/{id}/")
     Call<ResponseBody> getCode(@Path("id") String id);
 
 }

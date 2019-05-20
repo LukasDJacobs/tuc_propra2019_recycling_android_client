@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.body() == null)
                     return;
 
-                String s = "Response Code: " + response.code() + " " +response.message();
+                String s = "Response Code: " + response.code() + " " + response.message();
                 s += "\n";
                 try {
                     s += response.body().string();

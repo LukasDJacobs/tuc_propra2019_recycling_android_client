@@ -89,11 +89,6 @@ public class ScanCodeDialogActivity extends AppCompatActivity {
                 setResult(RESULT_OK, i);
                 finish();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e(LOG_TAG, "Failed to detect code.", e);
-            }
-        });
+        }).addOnFailureListener(e -> Log.e(LOG_TAG, "Failed to detect code.", e));
     }
 }
