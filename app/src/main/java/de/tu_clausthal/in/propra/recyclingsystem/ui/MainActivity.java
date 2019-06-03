@@ -1,8 +1,10 @@
 package de.tu_clausthal.in.propra.recyclingsystem.ui;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -136,6 +138,10 @@ public class MainActivity extends AppCompatActivity {
 
                 mLastObject = gson.fromJson(body, RecyclingObject.class);
                 mBtnRecycle.setVisibility(View.VISIBLE);
+
+                if (mLastObject.getStatus().equals("verschrottet")) {
+                    showWarning();
+                }
             }
 
             @Override
@@ -143,5 +149,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showWarning() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Warnung: Dieses Gerät wurde bereits als verschrottet markiert!")
+                .setTitle("WARNUNG")
+                .setNeutralButton("OK", (dialog, which) -> {});
+        builder.create().show();
     }
 }
