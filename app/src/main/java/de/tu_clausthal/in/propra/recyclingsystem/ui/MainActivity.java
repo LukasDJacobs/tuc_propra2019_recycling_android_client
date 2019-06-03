@@ -7,7 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -20,6 +24,7 @@ import butterknife.OnClick;
 import dagger.android.AndroidInjection;
 import de.tu_clausthal.in.propra.recyclingsystem.R;
 import de.tu_clausthal.in.propra.recyclingsystem.RecyclerWebservice;
+import de.tu_clausthal.in.propra.recyclingsystem.RecyclingObject;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SCAN_CODE = 1001;
 
+    private RecyclingObject mLastObject;
+
     @Inject
     RecyclerWebservice mWebservice;
 
@@ -39,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.tv_response)
     TextView mTvResponse;
+
+    @BindView(R.id.btn_recycle)
+    Button mBtnRecycle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +62,33 @@ public class MainActivity extends AppCompatActivity {
     void onScanCodeClicked() {
         Intent scanCodeActivityIntent = new Intent(this, ScanCodeDialogActivity.class);
         startActivityForResult(scanCodeActivityIntent, RC_SCAN_CODE);
+    }
+
+    @OnClick(R.id.btn_recycle)
+    void onRecycleClicked() {
+        /*
+        {
+	"recyclerID": "FortyTwo",
+	"objectID": "3fa06618-9aa8-41b5-a65e-a102f2309d88"
+}
+         */
+
+
+        RecyclingObject object = new RecyclingObject();
+        object.setRecyclerID("FortyTwo");
+        object.setObjectID(mLastObject.getObjectID());
+
+        mWebservice.markRecycled(object).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Snackbar.make(mRootView, response.message(), Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -85,13 +122,20 @@ public class MainActivity extends AppCompatActivity {
 
                 String s = "Response Code: " + response.code() + " " + response.message();
                 s += "\n";
+                String body = "";
                 try {
-                    s += response.body().string();
+                    body = response.body().string();
+                    s += body;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 mTvResponse.setText(s);
                 mTvResponse.setVisibility(View.VISIBLE);
+
+                Gson gson = new Gson();
+
+                mLastObject = gson.fromJson(body, RecyclingObject.class);
+                mBtnRecycle.setVisibility(View.VISIBLE);
             }
 
             @Override
