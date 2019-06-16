@@ -30,20 +30,210 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.988" />
 
     <Button
         android:id="@+id/btn_recycle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Als recycled markieren"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/fab_scan_code"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_object_found" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_object_found"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/fab_scan_code"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_response" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible">
+
+        <TextView
+            android:id="@+id/tv_object_found_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="Objekt gefunden!"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_created_by_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Erstellt durch:"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_created_by"
+            app:layout_constraintStart_toEndOf="@+id/iv_created_by"
+            app:layout_constraintTop_toTopOf="@+id/iv_created_by" />
+
+        <TextView
+            android:id="@+id/_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="ID:"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_object_id"
+            app:layout_constraintStart_toEndOf="@+id/iv_object_id"
+            app:layout_constraintTop_toTopOf="@+id/iv_object_id" />
+
+        <TextView
+            android:id="@+id/tv_object_type_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Gerätetyp:"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_device_type"
+            app:layout_constraintStart_toEndOf="@+id/iv_device_type"
+            app:layout_constraintTop_toTopOf="@+id/iv_device_type" />
+
+        <ImageView
+            android:id="@+id/iv_object_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_object_found_heading"
+            app:srcCompat="@drawable/ic_code" />
+
+        <ImageView
+            android:id="@+id/iv_created_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/iv_object_id"
+            app:layout_constraintStart_toStartOf="@+id/iv_object_id"
+            app:layout_constraintTop_toBottomOf="@+id/iv_object_id"
+            app:srcCompat="@drawable/ic_person" />
+
+        <ImageView
+            android:id="@+id/iv_device_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/iv_created_by"
+            app:layout_constraintTop_toBottomOf="@+id/iv_created_by"
+            app:srcCompat="@drawable/ic_devices" />
+
+        <ImageView
+            android:id="@+id/iv_deposit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/iv_device_type"
+            app:layout_constraintTop_toBottomOf="@+id/iv_device_type"
+            app:srcCompat="@drawable/ic_money" />
+
+        <TextView
+            android:id="@+id/tv_deposit_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Pfand:"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_deposit"
+            app:layout_constraintStart_toEndOf="@+id/iv_deposit"
+            app:layout_constraintTop_toTopOf="@+id/iv_deposit" />
+
+        <ImageView
+            android:id="@+id/iv_device_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/iv_deposit"
+            app:layout_constraintTop_toBottomOf="@+id/iv_deposit"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <TextView
+            android:id="@+id/tv_device_status_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Gerätestatus:"
+            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_device_status"
+            app:layout_constraintStart_toEndOf="@+id/iv_device_status"
+            app:layout_constraintTop_toTopOf="@+id/iv_device_status" />
+
+        <TextView
+            android:id="@+id/tv_object_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/_label" />
+
+        <TextView
+            android:id="@+id/tv_created_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_created_by_label"
+            app:layout_constraintEnd_toEndOf="@+id/tv_object_id"
+            app:layout_constraintTop_toTopOf="@+id/tv_created_by_label" />
+
+        <TextView
+            android:id="@+id/tv_device_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_object_type_label"
+            app:layout_constraintEnd_toEndOf="@+id/tv_created_by"
+            app:layout_constraintTop_toTopOf="@+id/tv_object_type_label" />
+
+        <TextView
+            android:id="@+id/tv_deposit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_deposit_label"
+            app:layout_constraintEnd_toEndOf="@+id/tv_device_type"
+            app:layout_constraintTop_toTopOf="@+id/tv_deposit_label" />
+
+        <TextView
+            android:id="@+id/tv_device_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_device_status_label"
+            app:layout_constraintEnd_toEndOf="@+id/tv_deposit"
+            app:layout_constraintTop_toTopOf="@+id/tv_device_status_label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,8 @@ package de.tu_clausthal.in.propra.recyclingsystem.ui;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +51,24 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.btn_recycle)
     Button mBtnRecycle;
+
+    @BindView(R.id.cl_object_found)
+    ConstraintLayout mClObjectFound;
+
+    @BindView(R.id.tv_object_id)
+    TextView mTvObjectId;
+
+    @BindView(R.id.tv_created_by)
+    TextView mTvCreatedBy;
+
+    @BindView(R.id.tv_device_type)
+    TextView mTvDeviceType;
+
+    @BindView(R.id.tv_deposit)
+    TextView mTvDeposit;
+
+    @BindView(R.id.tv_device_status)
+    TextView mTvDeviceStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +133,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() != 200) { // HTTP 200: OK
-                    mTvResponse.setText("Error Code " + response.code());
-                    mTvResponse.setVisibility(View.VISIBLE);
+                    Log.e(LOG_TAG, "Error Code " + response.code());
                 }
 
                 if (response.body() == null)
@@ -131,8 +148,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                mTvResponse.setText(s);
-                mTvResponse.setVisibility(View.VISIBLE);
 
                 Gson gson = new Gson();
 
@@ -142,6 +157,8 @@ public class MainActivity extends AppCompatActivity {
                 if (mLastObject.getStatus().equals("verschrottet")) {
                     showWarning();
                 }
+
+                showObject(mLastObject);
             }
 
             @Override
@@ -149,6 +166,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showObject(RecyclingObject object) {
+        mTvObjectId.setText(object.getObjectID());
+        mTvCreatedBy.setText(object.getCreatorID());
+        mTvDeviceType.setText(object.getObjectType());
+        mTvDeposit.setText(object.getPfand());
+        mTvDeviceStatus.setText(object.getStatus());
+
+        mClObjectFound.setVisibility(View.VISIBLE);
+        for (int i = 0; i < mClObjectFound.getChildCount(); i++) {
+            View v = mClObjectFound.getChildAt(i);
+            v.setVisibility(View.VISIBLE);
+        }
     }
 
     private void showWarning() {
