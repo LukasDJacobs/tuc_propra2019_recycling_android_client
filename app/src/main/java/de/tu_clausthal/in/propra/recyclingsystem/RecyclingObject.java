@@ -5,12 +5,9 @@ public class RecyclingObject {
     private String creatorID;
     private String objectID;
     private String objectType;
-    private String pfand;
-    private String status;
-    private String verschrottet;
+    private float pfand;
+    private boolean status;
     private String prevhash;
-    private String sighash;
-    private String recyclerID;
 
     public String getCreatorID() {
         return creatorID;
@@ -36,28 +33,20 @@ public class RecyclingObject {
         this.objectType = objectType;
     }
 
-    public String getPfand() {
+    public float getPfand() {
         return pfand;
     }
 
-    public void setPfand(String pfand) {
+    public void setPfand(float pfand) {
         this.pfand = pfand;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public String getVerschrottet() {
-        return verschrottet;
-    }
-
-    public void setVerschrottet(String verschrottet) {
-        this.verschrottet = verschrottet;
     }
 
     public String getPrevhash() {
@@ -68,19 +57,4 @@ public class RecyclingObject {
         this.prevhash = prevhash;
     }
 
-    public String getSighash() {
-        return sighash;
-    }
-
-    public void setSighash(String sighash) {
-        this.sighash = sighash;
-    }
-
-    public String getRecyclerID() {
-        return recyclerID;
-    }
-
-    public void setRecyclerID(String recyclerID) {
-        this.recyclerID = recyclerID;
-    }
 }

@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         RecyclingObject object = new RecyclingObject();
-        object.setRecyclerID("FortyTwo");
+        object.setCreatorID("FortyTwo");
         object.setObjectID(mLastObject.getObjectID());
 
         mWebservice.markRecycled(object).enqueue(new Callback<ResponseBody>() {
@@ -149,12 +149,20 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                // Cleanup work
+                if (body.startsWith("\"")) {
+                    body = body.substring(1);
+                }
+                if (body.endsWith("\"")) {
+                    body = body.substring(0, body.lastIndexOf("\""));
+                }
+
                 Gson gson = new Gson();
 
                 mLastObject = gson.fromJson(body, RecyclingObject.class);
                 mBtnRecycle.setVisibility(View.VISIBLE);
 
-                if (mLastObject.getStatus().equals("verschrottet")) {
+                if (!mLastObject.getStatus()) { // True = Bereits verschrottet
                     showWarning();
                 }
 
@@ -172,8 +180,15 @@ public class MainActivity extends AppCompatActivity {
         mTvObjectId.setText(object.getObjectID());
         mTvCreatedBy.setText(object.getCreatorID());
         mTvDeviceType.setText(object.getObjectType());
-        mTvDeposit.setText(object.getPfand());
-        mTvDeviceStatus.setText(object.getStatus());
+        mTvDeposit.setText(Float.toString(object.getPfand()));
+
+        if (!object.getStatus()) {
+            mTvDeviceStatus.setText("Verschrottet");
+            mBtnRecycle.setEnabled(false);
+        } else {
+            mTvDeviceStatus.setText("In Benutzung");
+            mBtnRecycle.setEnabled(true);
+        }
 
         mClObjectFound.setVisibility(View.VISIBLE);
         for (int i = 0; i < mClObjectFound.getChildCount(); i++) {
