@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclingObject mLastObject;
 
+    public boolean test_200_returned = false;
+
     @Inject
     RecyclerWebservice mWebservice;
 
@@ -128,13 +130,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void handleScannedCode(String code) {
+    protected void handleScannedCode(String code) {
         mWebservice.getCode(code).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() != 200) { // HTTP 200: OK
                     Log.e(LOG_TAG, "Error Code " + response.code());
                 }
+
+                test_200_returned = true;
 
                 if (response.body() == null)
                     return;
@@ -162,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 mLastObject = gson.fromJson(body, RecyclingObject.class);
                 mBtnRecycle.setVisibility(View.VISIBLE);
 
-                if (!mLastObject.getStatus()) { // True = Bereits verschrottet
+                if (mLastObject.getStatus()) { // True = Bereits verschrottet
                     showWarning();
                 }
 
@@ -182,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         mTvDeviceType.setText(object.getObjectType());
         mTvDeposit.setText(Float.toString(object.getPfand()));
 
-        if (!object.getStatus()) {
+        if (object.getStatus()) {
             mTvDeviceStatus.setText("Verschrottet");
             mBtnRecycle.setEnabled(false);
         } else {
