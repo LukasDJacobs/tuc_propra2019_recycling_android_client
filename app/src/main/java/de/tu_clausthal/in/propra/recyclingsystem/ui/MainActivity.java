@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_recycle)
     Button mBtnRecycle;
 
+    @BindView(R.id.btn_show_key)
+    Button mBtnShowKey;
+
     @BindView(R.id.cl_object_found)
     ConstraintLayout mClObjectFound;
 
@@ -326,6 +329,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick(R.id.btn_show_key)
+    void showKey() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Public Key")
+                .setMessage(mPublicKey.getModulus().toString());
+        builder.create().show();
     }
 
     private void showObject(RecyclingObject object) {
