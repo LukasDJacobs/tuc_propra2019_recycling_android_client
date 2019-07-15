@@ -7,6 +7,7 @@ public class RecyclingObject {
     private String objectType;
     private float pfand;
     private boolean status;
+    private String hash;
     private String prevhash;
 
     public String getCreatorID() {
@@ -49,6 +50,14 @@ public class RecyclingObject {
         this.status = status;
     }
 
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
     public String getPrevhash() {
         return prevhash;
     }
@@ -56,5 +65,4 @@ public class RecyclingObject {
     public void setPrevhash(String prevhash) {
         this.prevhash = prevhash;
     }
-
 }

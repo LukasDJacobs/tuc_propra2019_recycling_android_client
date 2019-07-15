@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
-    private static final String API_BASE_URL = "http://10.0.2.2:8000/";
+    private static final String API_BASE_URL = "http://79.219.13.64:8000/";
     private static final long NETWORK_TIMEOUT_SECONDS = 10;
 
     @Provides
